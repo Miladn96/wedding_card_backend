@@ -1,0 +1,72 @@
+import { Request, Response } from 'express';
+import {{pascalCase name}} from  '../routes/{{lowerCase name}}';
+
+// Create
+const create{{pascalCase name}} = async (req: Request, res: Response) => {
+    const {{lowerCase name}} = new {{pascalCase name}}({})
+    await {{lowerCase name}}.save();
+};
+
+// Find all
+const findAll{{pascalCase name}} = async (req: Request, res: Response) => {
+    try {
+        const {{lowerCase name}} = await {{pascalCase name}}.find();
+        res.status(200).json({{lowerCase name}});
+    } catch (err) {
+        res.status(404).json({message: error.message});
+    }
+}
+
+// Find One
+const findOne{{pascalCase name}} = async (req: Request, res: Response) => {
+    try {
+        const {{lowerCase name}} = await {{pascalCase name}}.findById(req.params.id);
+        res.status(200).json({{lowerCase name}});
+    } catch (err) {
+        res.status(404).json({message: error.message});
+    }
+}
+
+// Update
+const update{{pascalCase name}} = async (req: Request, res: Response) => {
+    if(!req.body) {
+        res.status(400).send({
+            message: "Data can not be empty!"
+        });
+    }
+
+    const id = req.params.id;
+
+    await {{pascalCase name}}.findByIdAndUpdate(id, req.body, { useFindAndModify: false }).then(data => {
+        if (!data) {
+            res.status(404).send({
+                message: `User not found.`
+            });
+        }else{
+            res.send({ message: "User updated successfully." })
+        }
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message
+        });
+    });
+}
+
+// Delete
+const delete{{pascalCase name}} = async (req: Request, res: Response) => {
+    await {{pascalCase name}}.findByIdAndRemove(req.params.id).then(data => {
+        res.status(200);
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message
+        });
+    });
+};
+
+module.exports = {
+    create{{pascalCase name}},
+    findAll{{pascalCase name}},
+    findOne{{pascalCase name}},
+    update{{pascalCase name}},
+    delete{{pascalCase name}}
+}

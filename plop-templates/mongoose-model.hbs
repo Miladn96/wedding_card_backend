@@ -1,0 +1,9 @@
+import mongoose, { Document, Schema } from 'mongoose';
+
+interface I{{name}} extends Document {}
+
+const {{pascalCase name}}Schema: Schema<I{{name}}> = new Schema({});
+
+const {{name}}Model = mongoose.model<I{{name}}>('{{name}}', {{pascalCase name}}Schema);
+
+export { {{name}}Model, I{{name}} };

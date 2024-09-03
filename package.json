@@ -1,0 +1,28 @@
+{
+  "name": "wedding-website-backend",
+  "version": "1.0.0",
+  "main": "main.ts",
+  "author": "Milad Nasiri",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon --exec ts-node src/main.ts",
+    "gModel": "plop model",
+    "build": "tsc --outDir dist"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/mongoose": "^5.11.97",
+    "@types/node": "^22.1.0",
+    "dotenv": "^16.4.5",
+    "plop": "^4.0.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.5.2",
+    "nodemon": "^3.1.4"
+  }
+}

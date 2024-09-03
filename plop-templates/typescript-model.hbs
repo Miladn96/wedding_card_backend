@@ -1,0 +1,35 @@
+interface I{{name}} {
+    {{#each fields}}
+        {{this}}: string;
+    {{/each}}
+}
+
+class {{name}} implements I{{name}} {
+    {{#each fields}}
+        {{this}}: string;
+    {{/each}}
+
+    constructor({{#each fields}}{{this}}{{#if @last}}{{else}}, {{/if}}{{/each}}) {
+        {{#each fields}}
+            this.{{this}} = {{this}};
+        {{/each}}
+    }
+
+    toJson(): Partial<I{{name}}> {
+        return {
+            {{#each fields}}
+                {{this}}: this.{{this}},
+            {{/each}}
+        };
+    }
+
+    static fromJson(json: Partial<I{{name}}>): {{name}} {
+        return new {{name}}(
+            {{#each fields}}
+                json.{{this}} || '',
+            {{/each}}
+        );
+    }
+}
+
+export { {{name}}, I{{name}} };

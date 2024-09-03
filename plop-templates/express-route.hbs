@@ -1,0 +1,33 @@
+import express, { Request, Response } from 'express';
+import { {{name}}Model } from '../models/{{name}}.model';
+import { {{name}} } from '../types/{{name}}';
+
+const router = express.Router();
+
+// Create a new {{name}}
+router.post('/', async (req: Request, res: Response) => {
+    try {
+        const {{name}}Data = {{name}}.fromJson(req.body);
+        const new{{name}} = new {{name}}Model({{name}}Data);
+        await new{{name}}.save();
+        res.status(201).json(new{{name}});
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Get a {{name}} by ID
+router.get('/:id', async (req: Request, res: Response) => {
+    try {
+        const {{name}} = await {{name}}Model.findById(req.params.id);
+        if (!{{name}}) {
+        return res.status(404).json({ message: '{{name}} not found' });
+    }
+    const {{name}}Data = new {{name}}({{#each fields}}{{this}}{{#if @last}}{{else}}, {{/if}}{{/each}});
+    res.json({{name}}Data.toJson());
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+export default router;
